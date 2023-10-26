@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MyApp());
 }
 
@@ -56,6 +59,36 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    String _appId = '<your-app-id>';
+
+    OneSignal.initialize(_appId);
+
+    OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+
+    addTags();
+  }
+
+  Future<void> addTags() async {
+    try {
+      // https://documentation.onesignal.com/docs/flutter-sdk-setup#add-data-tags
+
+      OneSignal.User.addTags({
+        'key': 'value',
+      });
+
+      // await OneSignal.User.addTags({
+      //   'key2': 'value2',
+      // }).timeout(const Duration(seconds: 25));
+    } catch (error, stackTrace) {
+      print('error: $error');
+      print('stackTrace: $stackTrace');
+    }
+  }
 
   void _incrementCounter() {
     setState(() {

@@ -1,16 +1,22 @@
 # notifications_playground_app_test
 
-A new Flutter project.
+- Flutter version
+```
+flutter --version
+Flutter 3.13.6 • channel stable • https://github.com/flutter/flutter.git
+Framework • revision ead455963c (4 weeks ago) • 2023-09-26 18:28:17 -0700
+Engine • revision a794cf2681
+Tools • Dart 3.1.3 • DevTools 2.25.0
+```
 
-## Getting Started
+Steps to reproduce:
 
-This project is a starting point for a Flutter application.
+1. Update the `_appId` variable in `lib/main.dart` with your own App ID.
+2. Run the app on a device.
+    1. On the first run it will open the app and one signal will run as expected
+3. Stop the app and run it again
+    1. On the second run it displays the initialization errors / missing plugin implementations
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
