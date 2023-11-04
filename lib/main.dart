@@ -66,31 +66,31 @@ class _MyHomePageState extends State<MyHomePage> {
 
     String _appId = '<your-app-id>';
 
-    OneSignal.initialize(_appId);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      OneSignal.initialize(_appId);
 
-    OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+      await OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
 
-    addTags();
+      // The promptForPushNotificationsWithUserResponse function will show the iOS or Android push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
+      await OneSignal.Notifications.requestPermission(true);
+    });
   }
 
-  Future<void> addTags() async {
+  Future<void> addTags(int counter) async {
     try {
       // https://documentation.onesignal.com/docs/flutter-sdk-setup#add-data-tags
-
-      OneSignal.User.addTags({
-        'key': 'value',
+      await OneSignal.User.addTags({
+        'key': 'value $counter',
       });
 
-      // await OneSignal.User.addTags({
-      //   'key2': 'value2',
-      // }).timeout(const Duration(seconds: 25));
+      // await OneSignal.User.addTagWithKey('key', 'value $counter');
     } catch (error, stackTrace) {
       print('error: $error');
       print('stackTrace: $stackTrace');
     }
   }
 
-  void _incrementCounter() {
+  Future<void> _incrementCounter() async {
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
@@ -99,6 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+
+    await addTags(_counter);
   }
 
   @override
